@@ -16,15 +16,15 @@ function App() {
   const [lastParams, setLastParams] = useState<SearchParams | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
 
-  const handleSearch = async (params: SearchParams, pageNum = 1) => {
+  const handleSearch = async (params: SearchParams, pageNum = 1, skipConvert = false) => {
     setIsLoading(true);
     setError(null);
 
     let imgUrl = params.img_url;
 
     try {
-      // Конвертируем URL если это не Alibaba-ссылка
-      if (!isAlibabaUrl(imgUrl)) {
+      // Конвертируем URL если это не Alibaba-ссылка (пропускаем при пагинации)
+      if (!skipConvert && !isAlibabaUrl(imgUrl)) {
         setIsConverting(true);
         const convertResponse = await convertImageUrl({
           url: imgUrl,
@@ -40,7 +40,9 @@ function App() {
       }
 
       const searchParams = { ...params, img_url: imgUrl };
-      setLastParams(searchParams);
+      if (!skipConvert) {
+        setLastParams(searchParams);
+      }
 
       const response = await searchByImageUrl({
         ...searchParams,
@@ -66,7 +68,7 @@ function App() {
 
   const handlePageChange = (newPage: number) => {
     if (lastParams) {
-      handleSearch(lastParams, newPage);
+      handleSearch(lastParams, newPage, true);
     }
   };
 
