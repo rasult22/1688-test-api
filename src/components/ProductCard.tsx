@@ -21,9 +21,8 @@ export function ProductCard({ product }: ProductCardProps) {
         <a href={product.product_url} target="_blank" rel="noopener noreferrer">
           <img src={product.img} alt={product.title} className="product-image" />
         </a>
-        {shipIn48h && <span className="image-badge ship-48h">48ч</span>}
-        {freeShipping && <span className="image-badge free-ship">Бесп. дост.</span>}
       </div>
+
       <div className="product-info">
         <h3 className="product-title">
           <a href={product.product_url} target="_blank" rel="noopener noreferrer">
@@ -31,66 +30,114 @@ export function ProductCard({ product }: ProductCardProps) {
           </a>
         </h3>
 
-        <div className="product-price-row">
-          <span className="product-price">¥{product.price}</span>
-          {hasDiscount && (
-            <span className="product-origin-price">¥{product.price_info.origin_price}</span>
-          )}
-        </div>
-
-        <div className="product-stats">
-          {salesText && (
-            <span className="stat-item sales">
-              <span className="stat-icon">📦</span>
-              {salesText}
-            </span>
-          )}
-          {repurchaseRate && repurchaseRate !== '0%' && (
-            <span className="stat-item repurchase">
-              <span className="stat-icon">🔄</span>
-              {repurchaseRate}
-            </span>
-          )}
-          {moq > 1 && (
-            <span className="stat-item moq">MOQ: {moq}</span>
-          )}
-        </div>
-
-        <div className="product-badges">
-          {product.shop_info.is_super_factory && <span className="badge super-factory">Супер-фабрика</span>}
-          {product.shop_info.is_factory && !product.shop_info.is_super_factory && <span className="badge factory">Фабрика</span>}
-          {product.shop_info.is_powerful_seller && <span className="badge powerful">Топ продавец</span>}
-          {product.shop_info.factory_inspection && <span className="badge verified">Проверен</span>}
-          {product.low_refund_rate && <span className="badge low-refund">Мало возвратов</span>}
-          {product.is_ad && <span className="badge ad">Реклама</span>}
-        </div>
-
-        <div className="shop-meta">
-          <div className="shop-info-row">
-            {product.shop_info.shop_url ? (
-              <a
-                href={product.shop_info.shop_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="shop-link"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {product.shop_info.company_name}
-              </a>
-            ) : (
-              <span className="shop-name">{product.shop_info.company_name}</span>
-            )}
-            {shopScore && (
-              <span className="shop-score">★ {shopScore}</span>
+        {/* Цена */}
+        <div className="product-section price-section">
+          <div className="section-label">Цена за единицу:</div>
+          <div className="product-price-row">
+            <span className="product-price">¥{product.price}</span>
+            {hasDiscount && (
+              <span className="product-origin-price">была ¥{product.price_info.origin_price}</span>
             )}
           </div>
-          <div className="shop-details">
-            {shopYears && shopYears > 0 && (
-              <span className="shop-years">{shopYears} лет</span>
-            )}
-            <span className="location">{product.delivery_info.area_from.join(', ')}</span>
+        </div>
+
+        {/* Минимальный заказ */}
+        <div className="product-section">
+          <div className="section-label">Минимальный заказ:</div>
+          <div className="section-value">{moq} шт.</div>
+        </div>
+
+        {/* Продажи */}
+        {salesText && (
+          <div className="product-section">
+            <div className="section-label">Продано за 90 дней:</div>
+            <div className="section-value highlight-green">{salesText}</div>
+          </div>
+        )}
+
+        {/* Повторные покупки */}
+        {repurchaseRate && repurchaseRate !== '0%' && (
+          <div className="product-section">
+            <div className="section-label">Покупают повторно:</div>
+            <div className="section-value highlight-blue">{repurchaseRate} покупателей</div>
+          </div>
+        )}
+
+        {/* Доставка */}
+        <div className="product-section">
+          <div className="section-label">Доставка:</div>
+          <div className="section-value">
+            {shipIn48h && <div className="delivery-tag positive">Отправка в течение 48 часов</div>}
+            {freeShipping && <div className="delivery-tag positive">Бесплатная доставка</div>}
+            {!shipIn48h && !freeShipping && <div className="delivery-tag neutral">Стандартная</div>}
           </div>
         </div>
+
+        {/* Статус продавца */}
+        <div className="product-section">
+          <div className="section-label">Тип продавца:</div>
+          <div className="seller-tags">
+            {product.shop_info.is_super_factory && <span className="seller-tag super-factory">Супер-фабрика</span>}
+            {product.shop_info.is_factory && !product.shop_info.is_super_factory && <span className="seller-tag factory">Производитель (фабрика)</span>}
+            {!product.shop_info.is_factory && !product.shop_info.is_super_factory && <span className="seller-tag trader">Торговая компания</span>}
+            {product.shop_info.is_powerful_seller && <span className="seller-tag powerful">Топ продавец площадки</span>}
+          </div>
+        </div>
+
+        {/* Надёжность */}
+        {(product.shop_info.factory_inspection || product.low_refund_rate) && (
+          <div className="product-section">
+            <div className="section-label">Надёжность:</div>
+            <div className="seller-tags">
+              {product.shop_info.factory_inspection && <span className="seller-tag verified">Проверен 1688</span>}
+              {product.low_refund_rate && <span className="seller-tag low-refund">Низкий процент возвратов</span>}
+            </div>
+          </div>
+        )}
+
+        {/* Информация о магазине */}
+        <div className="product-section shop-section">
+          <div className="section-label">Продавец:</div>
+          <div className="shop-info-block">
+            <div className="shop-name-row">
+              {product.shop_info.shop_url ? (
+                <a
+                  href={product.shop_info.shop_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shop-link"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {product.shop_info.company_name}
+                </a>
+              ) : (
+                <span className="shop-name">{product.shop_info.company_name}</span>
+              )}
+            </div>
+            <div className="shop-stats">
+              {shopScore && (
+                <div className="shop-stat">
+                  <span className="shop-stat-label">Рейтинг:</span>
+                  <span className="shop-stat-value">★ {shopScore} из 5</span>
+                </div>
+              )}
+              {shopYears && shopYears > 0 && (
+                <div className="shop-stat">
+                  <span className="shop-stat-label">На площадке:</span>
+                  <span className="shop-stat-value">{shopYears} лет</span>
+                </div>
+              )}
+              <div className="shop-stat">
+                <span className="shop-stat-label">Регион:</span>
+                <span className="shop-stat-value">{product.delivery_info.area_from.join(', ')}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {product.is_ad && (
+          <div className="ad-notice">Рекламное размещение</div>
+        )}
       </div>
     </div>
   );
