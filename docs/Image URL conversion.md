@@ -1,71 +1,60 @@
-[Skip to main content](https://tmapi.top/docs/ali/tool-apis/image-url-convert/#__docusaurus_skipToContent_fallback)
+# Image URL Conversion
 
-## API Overview [​](https://tmapi.top/docs/ali/tool-apis/image-url-convert/\#api-overview "Direct link to API Overview")
+## API Overview
 
 - Convert image URL into a recognizable format for image search API
-- [See More](https://tmapi.top/docs/ali/tool-apis/image-url-convert/#response-example)
+- [See More](#response-example)
 
-## Basic Information [​](https://tmapi.top/docs/ali/tool-apis/image-url-convert/\#basic-information "Direct link to Basic Information")
+## Basic Information
 
-API URL
+- **API URL:** `http://api.tmapi.top/1688/tools/image/convert_url`
+- **Method:** POST
 
-POST
+## Request Parameter
 
-http://api.tmapi.top/1688/tools/image/convert\_url
+### Query
 
-## Request Parameter [​](https://tmapi.top/docs/ali/tool-apis/image-url-convert/\#request-parameter "Direct link to Request Parameter")
-
-### Query [​](https://tmapi.top/docs/ali/tool-apis/image-url-convert/\#query "Direct link to Query")
-
-### Body [​](https://tmapi.top/docs/ali/tool-apis/image-url-convert/\#body "Direct link to Body")
+### Body
 
 > Content-Type: application/json
 
 | Field | Type | Explanation | Required |
 | --- | --- | --- | --- |
 | url | string | Image URL to be converted | **true** |
-| search\_api\_endpoint | string | API endpoint for image search, defaults to \`/search/image\`, supported endpoints: [/search/image](https://tmapi.top/docs/ali/search/search-items-by-image-url), [/global/search/image](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-image-url), [/global/search/image/v2](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-image-url-v2) | **false** |
+| search_api_endpoint | string | API endpoint for image search, defaults to `/search/image`, supported endpoints: [/search/image](https://tmapi.top/docs/ali/search/search-items-by-image-url), [/global/search/image](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-image-url), [/global/search/image/v2](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-image-url-v2) | **false** |
 
-tip
+> **Tip:** The converted result is typically in image path format and can be directly used as a parameter for image search API
 
-The converted result is typically in image path format and can be directly used as a parameter for image search API
+## Security Auth
 
-## Security Auth [​](https://tmapi.top/docs/ali/tool-apis/image-url-convert/\#security-auth "Direct link to Security Auth")
-
-tip
-
-Please go to **[Console-Account Center](https://console.tmapi.io/account/center)** to get your apiToken
+> **Tip:** Please go to **[Console-Account Center](https://console.tmapi.io/account/center)** to get your apiToken
 
 Add your **apiToken** to your query parameters. Please refer to the examples below.
 
-## Request Example [​](https://tmapi.top/docs/ali/tool-apis/image-url-convert/\#request-example "Direct link to Request Example")
+## Request Example
 
-- PHP
-- JavaScript
-- Python
-- Java
-- Go
+### PHP
 
 ```php
 <?php
 
 $curl = curl_init();
 
-curl_setopt_array($curl, [\
-  CURLOPT_URL => "http://api.tmapi.top/1688/tools/image/convert_url?apiToken=xxxxxx",\
-  CURLOPT_RETURNTRANSFER => true,\
-  CURLOPT_ENCODING => "",\
-  CURLOPT_MAXREDIRS => 10,\
-  CURLOPT_TIMEOUT => 30,\
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\
-  CURLOPT_CUSTOMREQUEST => "POST",\
-  CURLOPT_POSTFIELDS => json_encode([\
-    'url' => '',\
-    'search_api_endpoint' => '/search/image'\
-  ]),\
-  CURLOPT_HTTPHEADER => [\
-    "Content-Type: application/json"\
-  ],\
+curl_setopt_array($curl, [
+  CURLOPT_URL => "http://api.tmapi.top/1688/tools/image/convert_url?apiToken=xxxxxx",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "POST",
+  CURLOPT_POSTFIELDS => json_encode([
+    'url' => '',
+    'search_api_endpoint' => '/search/image'
+  ]),
+  CURLOPT_HTTPHEADER => [
+    "Content-Type: application/json"
+  ],
 ]);
 
 $response = curl_exec($curl);
@@ -79,6 +68,8 @@ if ($err) {
   echo $response;
 }
 ```
+
+### JavaScript
 
 ```javascript
 import axios from 'axios';
@@ -99,6 +90,8 @@ try {
 }
 ```
 
+### Python
+
 ```python
 import requests
 
@@ -116,6 +109,8 @@ response = requests.post(url, json=payload, params=querystring)
 print(response.json())
 ```
 
+### Java
+
 ```java
 HttpRequest request = HttpRequest.newBuilder()
     .uri(URI.create("http://api.tmapi.top/1688/tools/image/convert_url?apiToken=xxxxxx"))
@@ -125,6 +120,8 @@ HttpRequest request = HttpRequest.newBuilder()
 HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 System.out.println(response.body());
 ```
+
+### Go
 
 ```go
 package main
@@ -154,48 +151,40 @@ func main() {
 }
 ```
 
-## Response Example [​](https://tmapi.top/docs/ali/tool-apis/image-url-convert/\#response-example "Direct link to Response Example")
+## Response Example
 
-- 200
-- 417
-- 422
-- 439
-- 499
-- 500
-- 503
+### 200 - Success
 
+```json
 {
-
-"code":
-
-200
-
-"msg":
-
-"success"
-
-"data":{
-
-"image\_url":
-
-"/search/imgextra/1692942898123\_q7ftzxs9.jpg"
-
+  "code": 200,
+  "msg": "success",
+  "data": {
+    "image_url": "/search/imgextra/1692942898123_q7ftzxs9.jpg"
+  }
 }
+```
 
-}
+### 417 - Failed
 
-\# Failed to retrieve data, please try again or contact customer service.
+Failed to retrieve data, please try again or contact customer service.
 
-\# Parameter error
+### 422 - Parameter Error
 
-\# Subscription expired or insufficient balance.
+Parameter error.
 
-\# Please try again or set your request timeout to 60 seconds.
+### 439 - Subscription Expired
 
-\# Unexpected error, please contact customer service.
+Subscription expired or insufficient balance.
 
-\# API request concurrency limit exceeded, please reduce concurrency.
+### 499 - Timeout
 
-Opens ChatThis icon Opens the chat window.
+Please try again or set your request timeout to 60 seconds.
 
-![Chat attention grabber](https://embed.tawk.to/_s/v4/assets/images/attention-grabbers/168-r-br.svg)
+### 500 - Unexpected Error
+
+Unexpected error, please contact customer service.
+
+### 503 - Concurrency Limit
+
+API request concurrency limit exceeded, please reduce concurrency.

@@ -1,66 +1,55 @@
-[Skip to main content](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-image-url/#__docusaurus_skipToContent_fallback)
+# Search for 1688 Products by Image (Multilingual Version)
 
-## API Overview [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-image-url/\#api-overview "Direct link to API Overview")
+## API Overview
 
 - Search for 1688 products by image
 - Support multiple languages
 
-## Basic Information [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-image-url/\#basic-information "Direct link to Basic Information")
+## Basic Information
 
-API URL
+- **API URL:** `http://api.tmapi.top/1688/global/search/image`
+- **Method:** GET
 
-GET
+## Request Parameter
 
-http://api.tmapi.top/1688/global/search/image
-
-## Request Parameter [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-image-url/\#request-parameter "Direct link to Request Parameter")
-
-### Query [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-image-url/\#query "Direct link to Query")
+### Query
 
 | Field | Type | Explanation | Required |
 | --- | --- | --- | --- |
-| img\_url | string | Image URL<br>**Only images from Alibaba-affiliated platforms can be identified.**<br>Non-Ali image needs to be converted using [Image URL conversion API](https://tmapi.top/docs/ali/tool-apis/image-url-convert) first, and then use the converted image URL to call this API. | **true** |
-| page | integer | Page number<br>Default value: 1 | false |
-| page\_size | integer | Number of items per page<br>Default value: 20<br>Max: 20. | false |
-| language | string | Optional values: `en`,<br>`zh`,`ru`,`th`,`pt`,<br>`es`,`tr`,`vi`,`ja`,<br>`ko`<br>Default value: en | false |
-| sort | string | Optional values: `default`,`sales`,`price_up`,`price_down`<br>Default value: default | false |
-| support\_dropshipping | boolean | Filter: Supports dropshipping | false |
-| is\_factory | boolean | Filter: Is factory | false |
-| verified\_supplier | boolean | Filter: Verified supplier | false |
-| free\_shipping | boolean | Filter: Free shipping | false |
-| new\_arrival | boolean | Filter: New product | false |
+| img_url | string | Image URL. **Only images from Alibaba-affiliated platforms can be identified.** Non-Ali image needs to be converted using [Image URL conversion API](https://tmapi.top/docs/ali/tool-apis/image-url-convert) first, and then use the converted image URL to call this API. | **true** |
+| page | integer | Page number. Default value: 1 | false |
+| page_size | integer | Number of items per page. Default value: 20. Max: 20. | false |
+| language | string | Optional values: `en`, `zh`, `ru`, `th`, `pt`, `es`, `tr`, `vi`, `ja`, `ko`. Default value: en | false |
+| sort | string | Optional values: `default`, `sales`, `price_up`, `price_down`. Default value: default | false |
+| support_dropshipping | boolean | Filter: Supports dropshipping | false |
+| is_factory | boolean | Filter: Is factory | false |
+| verified_supplier | boolean | Filter: Verified supplier | false |
+| free_shipping | boolean | Filter: Free shipping | false |
+| new_arrival | boolean | Filter: New product | false |
 
-### Body [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-image-url/\#body "Direct link to Body")
+## Security Auth
 
-## Security Auth [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-image-url/\#security-auth "Direct link to Security Auth")
-
-tip
-
-Please go to **[Console-Account Center](https://console.tmapi.io/account/center)** to get your apiToken
+> **Tip:** Please go to **[Console-Account Center](https://console.tmapi.io/account/center)** to get your apiToken
 
 Add your **apiToken** to your query parameters. Please refer to the examples below.
 
-## Request Example [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-image-url/\#request-example "Direct link to Request Example")
+## Request Example
 
-- PHP
-- JavaScript
-- Python
-- Java
-- Go
+### PHP
 
 ```php
 <?php
 
 $curl = curl_init();
 
-curl_setopt_array($curl, [\
-  CURLOPT_URL => "http://api.tmapi.top/1688/global/search/image?apiToken=xxxxxx&img_url=https%3A%2F%2Fcbu01.alicdn.com%2Fimg%2Fibank%2FO1CN01Lnbnos2LkORtHhOVp_%21%213367999730-0-cib.jpg&page=1&page_size=20&language=en&sort=default",\
-  CURLOPT_RETURNTRANSFER => true,\
-  CURLOPT_ENCODING => "",\
-  CURLOPT_MAXREDIRS => 10,\
-  CURLOPT_TIMEOUT => 30,\
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\
-  CURLOPT_CUSTOMREQUEST => "GET",\
+curl_setopt_array($curl, [
+  CURLOPT_URL => "http://api.tmapi.top/1688/global/search/image?apiToken=xxxxxx&img_url=https%3A%2F%2Fcbu01.alicdn.com%2Fimg%2Fibank%2FO1CN01Lnbnos2LkORtHhOVp_%21%213367999730-0-cib.jpg&page=1&page_size=20&language=en&sort=default",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
 ]);
 
 $response = curl_exec($curl);
@@ -74,6 +63,8 @@ if ($err) {
   echo $response;
 }
 ```
+
+### JavaScript
 
 ```javascript
 import axios from 'axios';
@@ -99,6 +90,8 @@ try {
 }
 ```
 
+### Python
+
 ```python
 import requests
 
@@ -111,6 +104,8 @@ response = requests.get(url, params=querystring)
 print(response.json())
 ```
 
+### Java
+
 ```java
 HttpRequest request = HttpRequest.newBuilder()
     .uri(URI.create("http://api.tmapi.top/1688/global/search/image?apiToken=xxxxxx&img_url=https%3A%2F%2Fcbu01.alicdn.com%2Fimg%2Fibank%2FO1CN01Lnbnos2LkORtHhOVp_%21%213367999730-0-cib.jpg&page=1&page_size=20&language=en&sort=default"))
@@ -119,6 +114,8 @@ HttpRequest request = HttpRequest.newBuilder()
 HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 System.out.println(response.body());
 ```
+
+### Go
 
 ```go
 package main
@@ -146,514 +143,108 @@ func main() {
 }
 ```
 
-## Response Example [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-image-url/\#response-example "Direct link to Response Example")
+## Response Example
 
-- 200
-- 417
-- 422
-- 439
-- 499
-- 500
-- 503
+### 200
 
+```json
 {
-
-"code":
-
-200
-
-"msg":
-
-"success"
-
-"data":{
-
-"page":
-
-1
-
-"page\_size":
-
-2
-
-"total\_count":
-
-666
-
-"sort":
-
-"default"
-
-"filters":{}
-
-"items":\[\
-\
-{\
-\
-"item\_id":\
-\
-865835426638\
-\
-"product\_url":\
-\
-"https://detail.1688.com/offer/865835426638.html"\
-\
-"title":\
-\
-"Applicable to Huawei Folding Novaflip Bell N3 Bracelet Mix Phone Case P50pocket2 Protective Case Vflip"\
-\
-"title\_origin":\
-\
-"适用华为折叠Novaflip铃铛N3手绳Mix手机壳P50Pocket2保护套VFlip"\
-\
-"img":\
-\
-"https://cbu01.alicdn.com/O1CN01MJvUUV26UATGC9C8o\_!!2407317664-0-cib.jpg"\
-\
-"category\_path":\[\
-\
-"1042207"\
-\
-"50911"\
-\
-"7"\
-\
-\]\
-\
-"price":\
-\
-"19.00"\
-\
-"price\_info":{\
-\
-"drop\_ship\_price":\
-\
-"19.00"\
-\
-"wholesale\_price":\
-\
-"19.00"\
-\
-"origin\_price":\
-\
-"19.00"\
-\
-}\
-\
-"brand":\
-\
-"yot"\
-\
-"title\_tags":\[\
-\
-"1688严选"\
-\
-\]\
-\
-"quantity\_begin":\
-\
-1\
-\
-"quantity\_prices":\[\
-\
-{\
-\
-"begin\_num":\
-\
-"1"\
-\
-"end\_num":\
-\
-""\
-\
-"price":\
-\
-"19.00"\
-\
-}\
-\
-\]\
-\
-"sale\_info":{\
-\
-"gmv\_fuzzy":\
-\
-"50+"\
-\
-"gmv\_30days":\
-\
-0\
-\
-"gmv\_30days\_cb":\
-\
-0\
-\
-"sale\_quantity":\
-\
-27\
-\
-"sale\_quantity\_month":\
-\
-3\
-\
-"sale\_quantity\_90days":\
-\
-12\
-\
-"sale\_quantity\_360days":\
-\
-27\
-\
-"orders\_count":\
-\
-13\
-\
-}\
-\
-"type":\
-\
-"normal"\
-\
-"delivery\_info":{\
-\
-"area\_from":\[\
-\
-"Guangdong"\
-\
-"Futian District, Shenzhen"\
-\
-\]\
-\
-"weight":\
-\
-0\
-\
-"suttle\_weight":\
-\
-0\
-\
-"free\_postage":\
-\
-false\
-\
-}\
-\
-"item\_repurchase\_rate":\
-\
-"0.0"\
-\
-"goods\_score":\
-\
-2\
-\
-"image\_dsm\_score":\
-\
-0\
-\
-"primary\_rank\_score":\
-\
-0\
-\
-"super\_new\_product":\
-\
-false\
-\
-"shop\_info":{\
-\
-"login\_id":\
-\
-NULL\
-\
-"member\_id":\
-\
-"b2b-2407317664"\
-\
-"company\_name":\
-\
-"xxxxxx"\
-\
-"shop\_url":\
-\
-"http://880755.1688.com"\
-\
-"biz\_type":\
-\
-"生产加工"\
-\
-"is\_factory":\
-\
-true\
-\
-"is\_super\_factory":\
-\
-false\
-\
-"is\_gold\_supplier":\
-\
-false\
-\
-"location":\[\
-\
-"Guangdong"\
-\
-"Futian District, Shenzhen"\
-\
-\]\
-\
-"service\_tags":\[\
-\
-"7×24H响应"\
-\
-"先采后付"\
-\
-\]\
-\
-"tp\_member":\
-\
-true\
-\
-"tp\_year":\
-\
-11\
-\
-"factory\_inspection":\
-\
-false\
-\
-"shop\_repurchase\_rate":\
-\
-"11.2%"\
-\
-}\
-\
-}\
-\
-{\
-\
-"item\_id":\
-\
-866011508042\
-\
-"product\_url":\
-\
-"https://detail.1688.com/offer/866011508042.html"\
-\
-"title":\
-\
-"Applicable to Huawei P50pocket Mobile Phone Shell Folding Screen Pocket2 Red Polka Dot Bow Bracelet Protective Cover"\
-\
-"title\_origin":\
-\
-"适用华为P50Pocket手机壳折叠屏Pocket2红色波点蝴蝶结手链保护套"\
-\
-"img":\
-\
-"https://cbu01.alicdn.com/O1CN01yNpkgG1BxXm6UG4jT\_!!2923750012-0-cib.jpg"\
-\
-"category\_path":\[\
-\
-"1042207"\
-\
-"50911"\
-\
-"7"\
-\
-\]\
-\
-"price":\
-\
-"20.00"\
-\
-"price\_info":{\
-\
-"drop\_ship\_price":\
-\
-"12.00"\
-\
-"wholesale\_price":\
-\
-"20.00"\
-\
-"origin\_price":\
-\
-"20.00"\
-\
-}\
-\
-"brand":\
-\
-"中性"\
-\
-"title\_tags":\[\]\
-\
-"quantity\_begin":\
-\
-2\
-\
-"quantity\_prices":\[\]\
-\
-"sale\_info":{\
-\
-"gmv\_fuzzy":\
-\
-"40+"\
-\
-"gmv\_30days":\
-\
-0\
-\
-"gmv\_30days\_cb":\
-\
-0\
-\
-"sale\_quantity":\
-\
-18\
-\
-"sale\_quantity\_month":\
-\
-2\
-\
-"sale\_quantity\_90days":\
-\
-14\
-\
-"sale\_quantity\_360days":\
-\
-18\
-\
-"orders\_count":\
-\
-5\
-\
-}\
-\
-"type":\
-\
-"normal"\
-\
-"delivery\_info":{\
-\
-"area\_from":\[\
-\
-"Guangdong"\
-\
-"Bao'an District, Shenzhen City"\
-\
-\]\
-\
-"weight":\
-\
-0\
-\
-"suttle\_weight":\
-\
-0\
-\
-"free\_postage":\
-\
-false\
-\
-}\
-\
-"item\_repurchase\_rate":\
-\
-"0.5"\
-\
-"goods\_score":\
-\
-2\
-\
-"image\_dsm\_score":\
-\
-0\
-\
-"primary\_rank\_score":\
-\
-0\
-\
-"super\_new\_product":\
-\
-false\
-\
-"shop\_info":{\
-\
-"login\_id":\
-\
-NULL\
-\
-"member\_id":\
-\
-"b2b-2923750012d6f68"\
-\
-"company\_name":\
-\
-"xxxxxx"\
-\
-"shop\_url":\
-\
-"http://keshentai.1688.com"\
-\
-"biz\_type":\
-\
-"生产加工"\
-\
-"is\_factory":\
-\
-false\
-\
-"is\_super\_factory":\
-\
-false\
-\
-"is\_gold\_supplier":\
-\
-false\
-\
-"location":\[\
-\
-"Guangdong"\
-\
-"Bao'an District, Shenzhen City"\
-\
-\]\
-\
-"service\_tags":\[\]\
-\
-"tp\_member":\
-\
-true\
-\
-"tp\_year":\
-\
-9\
-\
-"factory\_inspection":\
-\
-false\
-\
-"shop\_repurchase\_rate":\
-\
-"29.2%"\
-\
-}\
-\
-}\
-\
-\]
-
+  "code": 200,
+  "msg": "success",
+  "data": {
+    "page": 1,
+    "page_size": 2,
+    "total_count": 666,
+    "sort": "default",
+    "filters": {},
+    "items": [
+      {
+        "item_id": 865835426638,
+        "product_url": "https://detail.1688.com/offer/865835426638.html",
+        "title": "Applicable to Huawei Folding Novaflip Bell N3 Bracelet Mix Phone Case P50pocket2 Protective Case Vflip",
+        "title_origin": "适用华为折叠Novaflip铃铛N3手绳Mix手机壳P50Pocket2保护套VFlip",
+        "img": "https://cbu01.alicdn.com/O1CN01MJvUUV26UATGC9C8o_!!2407317664-0-cib.jpg",
+        "category_path": ["1042207", "50911", "7"],
+        "price": "19.00",
+        "price_info": {
+          "drop_ship_price": "19.00",
+          "wholesale_price": "19.00",
+          "origin_price": "19.00"
+        },
+        "brand": "yot",
+        "title_tags": ["1688严选"],
+        "quantity_begin": 1,
+        "quantity_prices": [
+          {
+            "begin_num": "1",
+            "end_num": "",
+            "price": "19.00"
+          }
+        ],
+        "sale_info": {
+          "gmv_fuzzy": "50+",
+          "gmv_30days": 0,
+          "gmv_30days_cb": 0,
+          "sale_quantity": 27,
+          "sale_quantity_month": 3,
+          "sale_quantity_90days": 12,
+          "sale_quantity_360days": 27,
+          "orders_count": 13
+        },
+        "type": "normal",
+        "delivery_info": {
+          "area_from": ["Guangdong", "Futian District, Shenzhen"],
+          "weight": 0,
+          "suttle_weight": 0,
+          "free_postage": false
+        },
+        "item_repurchase_rate": "0.0",
+        "goods_score": 2,
+        "image_dsm_score": 0,
+        "primary_rank_score": 0,
+        "super_new_product": false,
+        "shop_info": {
+          "login_id": null,
+          "member_id": "b2b-2407317664",
+          "company_name": "xxxxxx",
+          "shop_url": "http://880755.1688.com",
+          "biz_type": "生产加工",
+          "is_factory": true,
+          "is_super_factory": false,
+          "is_gold_supplier": false,
+          "location": ["Guangdong", "Futian District, Shenzhen"],
+          "service_tags": ["7×24H响应", "先采后付"],
+          "tp_member": true,
+          "tp_year": 11,
+          "factory_inspection": false,
+          "shop_repurchase_rate": "11.2%"
+        }
+      }
+    ]
+  }
 }
+```
 
-}
+### 417
 
-\# Failed to retrieve data, please try again or contact customer service.
+Failed to retrieve data, please try again or contact customer service.
 
-\# Parameter error
+### 422
 
-\# Subscription expired or insufficient balance.
+Parameter error.
 
-\# Please try again or set your request timeout to 60 seconds.
+### 439
 
-\# Unexpected error, please contact customer service.
+Subscription expired or insufficient balance.
 
-\# API request concurrency limit exceeded, please reduce concurrency.
+### 499
+
+Please try again or set your request timeout to 60 seconds.
+
+### 500
+
+Unexpected error, please contact customer service.
+
+### 503
+
+API request concurrency limit exceeded, please reduce concurrency.

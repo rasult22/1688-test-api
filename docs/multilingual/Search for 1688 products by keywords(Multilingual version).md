@@ -1,73 +1,59 @@
-[Skip to main content](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-keyword/#__docusaurus_skipToContent_fallback)
+# Search for 1688 Products by Keywords (Multilingual Version)
 
-## API Overview [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-keyword/\#api-overview "Direct link to API Overview")
+## API Overview
 
 - Search for 1688 products by keywords
 - Support multiple languages
-- [See More](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-keyword/#response-example)
 
-## Basic Information [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-keyword/\#basic-information "Direct link to Basic Information")
+## Basic Information
 
-API URL
+- **API URL:** `http://api.tmapi.top/1688/global/search/items`
+- **Method:** `GET`
 
-GET
+## Request Parameter
 
-http://api.tmapi.top/1688/global/search/items
-
-## Request Parameter [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-keyword/\#request-parameter "Direct link to Request Parameter")
-
-### Query [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-keyword/\#query "Direct link to Query")
+### Query
 
 | Field | Type | Explanation | Required |
 | --- | --- | --- | --- |
-| page | integer | Page number<br>Default value: 1 | false |
-| page\_size | integer | Number of items per page<br>Default value: 20 | false |
+| page | integer | Page number. Default value: 1 | false |
+| page_size | integer | Number of items per page. Default value: 20 | false |
 | keyword | string | Search keywords | false |
-| language | string | Optional values: `en`,<br>`zh`,`ru`,`vi`,`ja`,<br>`ko`<br>Default value: en | false |
-| sort | string | Optional values: `default`,`sales`,`price_up`,`price_down`<br>Default value: default | false |
-| price\_start | string | Filter: Minimum value of price range | false |
-| price\_end | string | Filter: Maximum value of price range | false |
-| cat\_id | integer | Category ID | false |
-| new\_arrival | boolean | Filter: New product | false |
-| support\_dropshipping | boolean | Filter: Supports dropshipping | false |
-| free\_shipping | boolean | Filter: Free shipping | false |
-| is\_super\_factory | boolean |  | false |
+| language | string | Optional values: `en`, `zh`, `ru`, `vi`, `ja`, `ko`. Default value: en | false |
+| sort | string | Optional values: `default`, `sales`, `price_up`, `price_down`. Default value: default | false |
+| price_start | string | Filter: Minimum value of price range | false |
+| price_end | string | Filter: Maximum value of price range | false |
+| cat_id | integer | Category ID | false |
+| new_arrival | boolean | Filter: New product | false |
+| support_dropshipping | boolean | Filter: Supports dropshipping | false |
+| free_shipping | boolean | Filter: Free shipping | false |
+| is_super_factory | boolean |  | false |
 
-tip
+> **Tip:** At least one of `keyword` or `cat_ids` is required.
 
-At least one of `keyword` or `cat_ids` is required.
+## Security Auth
 
-### Body [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-keyword/\#body "Direct link to Body")
-
-## Security Auth [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-keyword/\#security-auth "Direct link to Security Auth")
-
-tip
-
-Please go to **[Console-Account Center](https://console.tmapi.io/account/center)** to get your apiToken
+> **Tip:** Please go to **[Console-Account Center](https://console.tmapi.io/account/center)** to get your apiToken
 
 Add your **apiToken** to your query parameters. Please refer to the examples below.
 
-## Request Example [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-keyword/\#request-example "Direct link to Request Example")
+## Request Example
 
-- PHP
-- JavaScript
-- Python
-- Java
-- Go
+### PHP
 
 ```php
 <?php
 
 $curl = curl_init();
 
-curl_setopt_array($curl, [\
-  CURLOPT_URL => "http://api.tmapi.top/1688/global/search/items?apiToken=xxxxxx&page=1&page_size=20&keyword=%E9%A9%AC%E5%85%8B%E6%9D%AF&language=en&sort=default",\
-  CURLOPT_RETURNTRANSFER => true,\
-  CURLOPT_ENCODING => "",\
-  CURLOPT_MAXREDIRS => 10,\
-  CURLOPT_TIMEOUT => 30,\
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\
-  CURLOPT_CUSTOMREQUEST => "GET",\
+curl_setopt_array($curl, [
+  CURLOPT_URL => "http://api.tmapi.top/1688/global/search/items?apiToken=xxxxxx&page=1&page_size=20&keyword=%E9%A9%AC%E5%85%8B%E6%9D%AF&language=en&sort=default",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
 ]);
 
 $response = curl_exec($curl);
@@ -81,6 +67,8 @@ if ($err) {
   echo $response;
 }
 ```
+
+### JavaScript
 
 ```javascript
 import axios from 'axios';
@@ -106,6 +94,8 @@ try {
 }
 ```
 
+### Python
+
 ```python
 import requests
 
@@ -118,6 +108,8 @@ response = requests.get(url, params=querystring)
 print(response.json())
 ```
 
+### Java
+
 ```java
 HttpRequest request = HttpRequest.newBuilder()
     .uri(URI.create("http://api.tmapi.top/1688/global/search/items?apiToken=xxxxxx&page=1&page_size=20&keyword=%E9%A9%AC%E5%85%8B%E6%9D%AF&language=en&sort=default"))
@@ -126,6 +118,8 @@ HttpRequest request = HttpRequest.newBuilder()
 HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
 System.out.println(response.body());
 ```
+
+### Go
 
 ```go
 package main
@@ -153,238 +147,72 @@ func main() {
 }
 ```
 
-## Response Example [​](https://tmapi.top/docs/ali/multi-language-apis/search-items-by-keyword/\#response-example "Direct link to Response Example")
+## Response Example
 
-- 200
-- 417
-- 422
-- 439
-- 499
-- 500
-- 503
+### 200
 
+```json
 {
-
-"code":
-
-200
-
-"msg":
-
-"success"
-
-"data":{
-
-"page":
-
-1
-
-"page\_size":
-
-2
-
-"has\_next\_page":
-
-true
-
-"sort":
-
-"price\_up"
-
-"filters":{}
-
-"items":\[\
-\
-{\
-\
-"item\_id":\
-\
-"850588705676"\
-\
-"product\_url":\
-\
-"https://detail.1688.com/offer/850588705676.html"\
-\
-"title":\
-\
-"Cross Border DuPont Paper Jelly Bag Tote Bag Large Capacity PVC Waterproof Tote Bag Commuter Mommy Shoulder Bag"\
-\
-"title\_origin":\
-\
-"跨境杜邦纸果冻包 托特包 大容量PVC防水手提袋 通勤妈咪单肩包包"\
-\
-"img":\
-\
-"https://cbu01-overseas.1688.com/img/ibank/O1CN01gcU0Tq1f5tqLKLfHI\_!!2216856833956-0-cib.jpg"\
-\
-"price":\
-\
-"35.0"\
-\
-"price\_info":{\
-\
-"price":\
-\
-"35.0"\
-\
-"price\_min":\
-\
-"35.0"\
-\
-"price\_max":\
-\
-"35.0"\
-\
-}\
-\
-"currency":\
-\
-"CNY"\
-\
-"quantity\_begin":\
-\
-"1"\
-\
-"sale\_info":{\
-\
-"sale\_quantity\_90days":\
-\
-"2880"\
-\
-}\
-\
-"goods\_score":\
-\
-"5.0"\
-\
-"shop\_info":{\
-\
-"is\_gold\_manufacturer":\
-\
-false\
-\
-"is\_verified":\
-\
-false\
-\
-}\
-\
-"is\_free\_shipping":\
-\
-false\
-\
-"is\_new\_item":\
-\
-false\
-\
-"is\_hot\_item":\
-\
-false\
-\
-}\
-\
-{\
-\
-"item\_id":\
-\
-"811949286969"\
-\
-"product\_url":\
-\
-"https://detail.1688.com/offer/811949286969.html"\
-\
-"title":\
-\
-"70th Anniversary Dragon Bag Nylon Dumpling Bag Large Capacity Women's Bag Canvas Tote Bag Single Shoulder Handbag Dragon Bag"\
-\
-"title\_origin":\
-\
-"70周年龙骧包尼龙饺子包大容量女包包帆布托特包单肩手提包龙骧包"\
-\
-"img":\
-\
-"https://cbu01-overseas.1688.com/img/ibank/O1CN01O5qYiF1q5P7aAs7gm\_!!2217496155444-0-cib.jpg"\
-\
-"price":\
-\
-"54.0"\
-\
-"price\_info":{\
-\
-"price":\
-\
-"54.0"\
-\
-"price\_min":\
-\
-"54.0"\
-\
-"price\_max":\
-\
-"54.0"\
-\
-}\
-\
-"currency":\
-\
-"CNY"\
-\
-"quantity\_begin":\
-\
-"1"\
-\
-"sale\_info":{\
-\
-"sale\_quantity\_90days":\
-\
-"2235"\
-\
-}\
-\
-"goods\_score":\
-\
-"4.9"\
-\
-"shop\_info":{\
-\
-"is\_gold\_manufacturer":\
-\
-false\
-\
-"is\_verified":\
-\
-false\
-\
-}\
-\
-"is\_free\_shipping":\
-\
-false\
-\
-"is\_new\_item":\
-\
-false\
-\
-"is\_hot\_item":\
-\
-false\
-\
-}\
-\
-\]
-
+  "code": 200,
+  "msg": "success",
+  "data": {
+    "page": 1,
+    "page_size": 2,
+    "has_next_page": true,
+    "sort": "price_up",
+    "filters": {},
+    "items": [
+      {
+        "item_id": "850588705676",
+        "product_url": "https://detail.1688.com/offer/850588705676.html",
+        "title": "Cross Border DuPont Paper Jelly Bag Tote Bag Large Capacity PVC Waterproof Tote Bag Commuter Mommy Shoulder Bag",
+        "title_origin": "跨境杜邦纸果冻包 托特包 大容量PVC防水手提袋 通勤妈咪单肩包包",
+        "img": "https://cbu01-overseas.1688.com/img/ibank/O1CN01gcU0Tq1f5tqLKLfHI_!!2216856833956-0-cib.jpg",
+        "price": "35.0",
+        "price_info": {
+          "price": "35.0",
+          "price_min": "35.0",
+          "price_max": "35.0"
+        },
+        "currency": "CNY",
+        "quantity_begin": "1",
+        "sale_info": {
+          "sale_quantity_90days": "2880"
+        },
+        "goods_score": "5.0",
+        "shop_info": {
+          "is_gold_manufacturer": false,
+          "is_verified": false
+        },
+        "is_free_shipping": false,
+        "is_new_item": false,
+        "is_hot_item": false
+      }
+    ]
+  }
 }
+```
 
-}
+### 417
 
-\# Failed to retrieve data, please try again or contact customer service.
+Failed to retrieve data, please try again or contact customer service.
 
-\# Parameter error
+### 422
 
-\# Subscription expired or insufficient balance.
+Parameter error.
 
-\# Please try again or set your request timeout to 60 seconds.
+### 439
 
-\# Unexpected error, please contact customer service.
+Subscription expired or insufficient balance.
 
-\# API request concurrency limit exceeded, please reduce concurrency.
+### 499
+
+Please try again or set your request timeout to 60 seconds.
+
+### 500
+
+Unexpected error, please contact customer service.
+
+### 503
+
+API request concurrency limit exceeded, please reduce concurrency.
