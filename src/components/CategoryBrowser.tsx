@@ -8,7 +8,7 @@ interface CategoryBrowserProps {
 }
 
 export function CategoryBrowser({ categories, onCategorySelect, isLoading }: CategoryBrowserProps) {
-  const [breadcrumbs, setBreadcrumbs] = useState<Array<{ id: string; name: string }>>([]);
+  const [breadcrumbs, setBreadcrumbs] = useState<Array<{ id: string; name: string; name_en?: string }>>([]);
   const [currentCategories, setCurrentCategories] = useState<Category[]>([]);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export function CategoryBrowser({ categories, onCategorySelect, isLoading }: Cat
 
   const handleCategoryClick = (category: Category) => {
     if (category.children && category.children.length > 0) {
-      setBreadcrumbs([...breadcrumbs, { id: category.id, name: category.name }]);
+      setBreadcrumbs([...breadcrumbs, { id: category.id, name: category.name, name_en: category.name_en }]);
       setCurrentCategories(category.children);
     } else {
       onCategorySelect(category.id);
@@ -64,7 +64,7 @@ export function CategoryBrowser({ categories, onCategorySelect, isLoading }: Cat
                 className="breadcrumb-item"
                 onClick={() => handleBreadcrumbClick(index)}
               >
-                {crumb.name}
+                {crumb.name_en || crumb.name}
               </button>
             </span>
           ))}
@@ -82,9 +82,9 @@ export function CategoryBrowser({ categories, onCategorySelect, isLoading }: Cat
               onClick={() => handleCategoryClick(category)}
             >
               {category.image_url && (
-                <img src={category.image_url} alt={category.name} className="category-image" />
+                <img src={category.image_url} alt={category.name_en || category.name} className="category-image" />
               )}
-              <div className="category-name">{category.name}</div>
+              <div className="category-name">{category.name_en || category.name}</div>
               {category.children && category.children.length > 0 && (
                 <div className="category-count">
                   {category.children.length} подкатегорий

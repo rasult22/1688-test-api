@@ -52,7 +52,7 @@ export async function convertImageUrl(params: ImageConvertParams): Promise<Image
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ url: params.url, search_api_endpoint: '/search/image' }),
+    body: JSON.stringify({ url: params.url, search_api_endpoint: '/global/search/image/v2' }),
   });
 
   if (!response.ok) {
@@ -81,8 +81,8 @@ export async function searchByImageUrl(params: SearchParams): Promise<SearchResp
   if (params.free_shipping !== undefined) queryParams.append('free_shipping', String(params.free_shipping));
   if (params.new_arrival !== undefined) queryParams.append('new_arrival', String(params.new_arrival));
 
-  // Use multilingual API endpoint
-  const response = await fetch(`${API_BASE_URL}/1688/global/search/image?${queryParams.toString()}`);
+  // Use multilingual API endpoint V2
+  const response = await fetch(`${API_BASE_URL}/1688/global/search/image/v2?${queryParams.toString()}`);
 
   if (!response.ok) {
     throw new Error(`API Error: ${response.status} ${response.statusText}`);

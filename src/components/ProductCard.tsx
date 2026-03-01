@@ -6,14 +6,17 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const moq = Number(product.moq) || Number(product.quantity_begin) || 1;
-  const hasDiscount = product.price_info.origin_price &&
-    Number(product.price_info.origin_price) > Number(product.price);
-  const salesText = product.sale_info.sale_quantity_90days || product.sale_info.sale_quantity;
-  const shipIn48h = product.ship_in_48h || product.delivery_info.ship_in_48h;
-  const freeShipping = product.delivery_info.free_shipping;
-  const repurchaseRate = product.item_repurchase_rate;
-  const shopScore = product.shop_info.score_info?.composite_score;
-  const shopYears = product.shop_info.shop_years;
+  const displayPrice = product.price || product.price_info?.sale_price || product.price_info?.show_price || '0';
+  const hasDiscount = product.price_info?.origin_price &&
+    Number(product.price_info.origin_price) > Number(displayPrice);
+  const salesText = product.sales_count || product.sale_info?.sale_quantity_90days || product.sale_info?.sale_quantity;
+  const salesInt = product.sale_info?.sale_quantity_int;
+  const buyerCount = product.sale_info?.buyer_count;
+  const shipIn48h = product.ship_in_48h || product.delivery_info?.ship_in_48h;
+  const freeShipping = product.delivery_info?.free_shipping;
+  const repurchaseRate = product.item_repurchase_rate || product.shop_info?.shop_repurchase_rate;
+  const shopScore = product.shop_info?.score_info?.composite_score;
+  const shopYears = product.shop_info?.shop_years;
 
   return (
     <div className="product-card">
@@ -34,9 +37,9 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="product-section price-section">
           <div className="section-label">Цена за единицу:</div>
           <div className="product-price-row">
-            <span className="product-price">¥{product.price}</span>
+            <span className="product-price">¥{displayPrice}</span>
             {hasDiscount && (
-              <span className="product-origin-price">была ¥{product.price_info.origin_price}</span>
+              <span className="product-origin-price">была ¥{product.price_info?.origin_price}</span>
             )}
           </div>
         </div>
@@ -48,18 +51,21 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Продажи */}
-        {salesText && (
+        {(salesText || salesInt) && (
           <div className="product-section">
-            <div className="section-label">Продано за 90 дней:</div>
-            <div className="section-value highlight-green">{salesText}</div>
+            <div className="section-label">Продано:</div>
+            <div className="section-value highlight-green">
+              {salesText || salesInt?.toLocaleString()}
+              {buyerCount ? ` (${buyerCount.toLocaleString()} покупателей)` : ''}
+            </div>
           </div>
         )}
 
         {/* Повторные покупки */}
-        {repurchaseRate && repurchaseRate !== '0%' && (
+        {repurchaseRate && repurchaseRate !== '0%' && repurchaseRate !== '0' && (
           <div className="product-section">
             <div className="section-label">Покупают повторно:</div>
-            <div className="section-value highlight-blue">{repurchaseRate} покупателей</div>
+            <div className="section-value highlight-blue">{repurchaseRate.includes('%') ? repurchaseRate : `${repurchaseRate}%`}</div>
           </div>
         )}
 
@@ -74,66 +80,72 @@ export function ProductCard({ product }: ProductCardProps) {
         </div>
 
         {/* Статус продавца */}
-        <div className="product-section">
-          <div className="section-label">Тип продавца:</div>
-          <div className="seller-tags">
-            {product.shop_info.is_super_factory && <span className="seller-tag super-factory">Супер-фабрика</span>}
-            {product.shop_info.is_factory && !product.shop_info.is_super_factory && <span className="seller-tag factory">Производитель (фабрика)</span>}
-            {!product.shop_info.is_factory && !product.shop_info.is_super_factory && <span className="seller-tag trader">Торговая компания</span>}
-            {product.shop_info.is_powerful_seller && <span className="seller-tag powerful">Топ продавец площадки</span>}
+        {product.shop_info && (
+          <div className="product-section">
+            <div className="section-label">Тип продавца:</div>
+            <div className="seller-tags">
+              {product.shop_info.is_super_factory && <span className="seller-tag super-factory">Супер-фабрика</span>}
+              {product.shop_info.is_factory && !product.shop_info.is_super_factory && <span className="seller-tag factory">Производитель (фабрика)</span>}
+              {!product.shop_info.is_factory && !product.shop_info.is_super_factory && <span className="seller-tag trader">Торговая компания</span>}
+              {product.shop_info.is_powerful_seller && <span className="seller-tag powerful">Топ продавец площадки</span>}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Надёжность */}
-        {(product.shop_info.factory_inspection || product.low_refund_rate) && (
+        {(product.shop_info?.factory_inspection || product.low_refund_rate) && (
           <div className="product-section">
             <div className="section-label">Надёжность:</div>
             <div className="seller-tags">
-              {product.shop_info.factory_inspection && <span className="seller-tag verified">Проверен 1688</span>}
+              {product.shop_info?.factory_inspection && <span className="seller-tag verified">Проверен 1688</span>}
               {product.low_refund_rate && <span className="seller-tag low-refund">Низкий процент возвратов</span>}
             </div>
           </div>
         )}
 
         {/* Информация о магазине */}
-        <div className="product-section shop-section">
-          <div className="section-label">Продавец:</div>
-          <div className="shop-info-block">
-            <div className="shop-name-row">
-              {product.shop_info.shop_url ? (
-                <a
-                  href={product.shop_info.shop_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shop-link"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  {product.shop_info.company_name}
-                </a>
-              ) : (
-                <span className="shop-name">{product.shop_info.company_name}</span>
-              )}
-            </div>
-            <div className="shop-stats">
-              {shopScore && (
-                <div className="shop-stat">
-                  <span className="shop-stat-label">Рейтинг:</span>
-                  <span className="shop-stat-value">★ {shopScore} из 5</span>
-                </div>
-              )}
-              {shopYears && shopYears > 0 && (
-                <div className="shop-stat">
-                  <span className="shop-stat-label">На площадке:</span>
-                  <span className="shop-stat-value">{shopYears} лет</span>
-                </div>
-              )}
-              <div className="shop-stat">
-                <span className="shop-stat-label">Регион:</span>
-                <span className="shop-stat-value">{product.delivery_info.area_from.join(', ')}</span>
+        {product.shop_info && (
+          <div className="product-section shop-section">
+            <div className="section-label">Продавец:</div>
+            <div className="shop-info-block">
+              <div className="shop-name-row">
+                {product.shop_info.shop_url ? (
+                  <a
+                    href={product.shop_info.shop_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shop-link"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {product.shop_info.company_name}
+                  </a>
+                ) : (
+                  <span className="shop-name">{product.shop_info.company_name}</span>
+                )}
+              </div>
+              <div className="shop-stats">
+                {shopScore && (
+                  <div className="shop-stat">
+                    <span className="shop-stat-label">Рейтинг:</span>
+                    <span className="shop-stat-value">★ {shopScore} из 5</span>
+                  </div>
+                )}
+                {shopYears && shopYears > 0 && (
+                  <div className="shop-stat">
+                    <span className="shop-stat-label">На площадке:</span>
+                    <span className="shop-stat-value">{shopYears} лет</span>
+                  </div>
+                )}
+                {product.delivery_info?.area_from && (
+                  <div className="shop-stat">
+                    <span className="shop-stat-label">Регион:</span>
+                    <span className="shop-stat-value">{product.delivery_info.area_from.join(', ')}</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         {product.is_ad && (
           <div className="ad-notice">Рекламное размещение</div>

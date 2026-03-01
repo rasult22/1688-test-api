@@ -32,6 +32,7 @@ export interface ShopInfo {
   score_info?: {
     composite_score: string;
   };
+  shop_repurchase_rate?: string | null;
 }
 
 export interface ProductItem {
@@ -40,21 +41,24 @@ export interface ProductItem {
   title_origin?: string;
   img: string;
   price: string;
-  price_info: {
+  price_info?: {
     price?: string;
     sale_price: string;
     origin_price: string;
+    show_price?: string;
   };
-  moq: number | string;
+  moq?: number | string;
   quantity_begin?: number | string;
   product_url: string;
-  sale_info: {
+  sales_count?: string;
+  sale_info?: {
     sale_quantity?: string;
     sale_quantity_int?: number;
     sale_quantity_90days?: string;
     orders_count?: number;
+    buyer_count?: number;
   };
-  delivery_info: {
+  delivery_info?: {
     area_from: string[];
     free_shipping?: boolean;
     ship_in_48h?: boolean;
@@ -63,7 +67,7 @@ export interface ProductItem {
   low_refund_rate?: boolean;
   ship_in_48h?: boolean;
   one_piece_min_order?: boolean;
-  shop_info: ShopInfo;
+  shop_info?: ShopInfo;
   is_ad?: boolean;
 }
 
